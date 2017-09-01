@@ -7,11 +7,13 @@ import flixel.FlxG;
 class Player extends FlxSprite 
 {
 	static private var normalSpeed:Int = 80;
-	private var shot:Bullet = new Bullet(-1, -1);
+	private var shot:Bullet;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
+		
+		shot = new Bullet();
 		
 		makeGraphic(8, 8);
 		
