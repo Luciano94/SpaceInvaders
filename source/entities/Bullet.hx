@@ -22,7 +22,7 @@ class Bullet extends FlxSprite
 		super.update(elapsed);
 		checkBoundaries();
 	}
-	
+		
 	override public function reset(X, Y)
 	{
 		super.reset(X, Y);

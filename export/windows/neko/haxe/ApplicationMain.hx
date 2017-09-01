@@ -515,7 +515,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "89",
+			build: "152",
 			company: "Ignacio Mosconi",
 			file: "SpaceInvaders",
 			fps: 60,
