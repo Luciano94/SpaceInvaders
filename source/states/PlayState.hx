@@ -33,13 +33,14 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		structureCollision();
 	}
 	
-	//private function structureCollision():Void
-	//{
-		//if (FlxG.overlap(player.shot, structures))
-		//{
-			//shot.kill();
-		//}
-	//}
+	private function structureCollision():Void
+	{
+		if (FlxG.overlap(player.shot, structures))
+		{
+			player.shot.kill();
+		}
+	}
 }

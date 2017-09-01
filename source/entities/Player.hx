@@ -7,7 +7,7 @@ import flixel.FlxG;
 class Player extends FlxSprite 
 {
 	static private var normalSpeed:Int = 80;
-	private var shot:Bullet;
+	public var shot(get, null):Bullet;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
@@ -53,5 +53,10 @@ class Player extends FlxSprite
 		{
 			shot.reset(x + width / 2, y);
 		}
+	}
+	
+	function get_shot():Bullet 
+	{
+		return shot;
 	}
 }
