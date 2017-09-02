@@ -2,6 +2,7 @@ package states;
 
 import entities.Player;
 import entities.Bullet;
+import entities.EnemyBullet;
 import entities.Enemy;
 import entities.Structure;
 import flixel.FlxState;
@@ -15,6 +16,7 @@ class PlayState extends FlxState
 	private var structures:FlxTypedGroup<Structure>;
 	private var enemys:FlxTypedGroup<Enemy>;
 	private var enemy: Enemy;
+	private var eneBullet: EnemyBullet;
 	
 	override public function create():Void
 	{
@@ -23,10 +25,11 @@ class PlayState extends FlxState
 		player = new Player(FlxG.width / 2, FlxG.height - 16);
 		structures = new FlxTypedGroup<Structure>();
 		enemys = new FlxTypedGroup<Enemy>();
+		eneBullet = new EnemyBullet(0, 160);
 		
-		for (j in 1...6)
+		for (j in 1...5)
 		{
-			for (i in 1...9)
+			for (i in 1...8)
 			{
 				if (i == 0)
 					enemy = new Enemy((16 + (16 * i)), j * 10);
@@ -44,6 +47,7 @@ class PlayState extends FlxState
 		
 		add(player);
 		add(enemys);
+		add(eneBullet);
 		add(structures);
 	}
 
@@ -52,6 +56,19 @@ class PlayState extends FlxState
 		super.update(elapsed);
 		structureCollision();
 		enemysCollision();
+		enemysShot();
+		playerDeath();
+		
+		
+	}
+	
+	private function enemysShot(){
+		
+		var i = enemys.getRandom(); 
+		
+		if ((i.canShot(eneBullet)) && (i.alive)){
+			i.shot(eneBullet);
+		}
 	}
 	
 	private function structureCollision():Void
@@ -65,11 +82,22 @@ class PlayState extends FlxState
 		structure.getDamage();
 	}
 	
+	private function playerDeath()
+	{
+		if (FlxG.overlap(player, eneBullet))
+			player.kill();
+	}
+	
 	private function enemysCollision(): Void
 	{
 		for (i in enemys.iterator())
 		{
 			i.killMe(player.shot);
+			for (j in structures.iterator())
+			{
+				if (FlxG.overlap(i, j))
+					j.getDamage();
+			}
 		}
 	}
 }
