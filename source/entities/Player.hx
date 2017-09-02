@@ -13,10 +13,9 @@ class Player extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		
-		shot = new Bullet();
-		
 		makeGraphic(8, 8);
 		
+		shot = new Bullet();	
 		FlxG.state.add(shot);
 	}
 	

@@ -22,7 +22,7 @@ class PlayState extends FlxState
 		
 		for (i	in 0...4) 
 		{
-			var structure = new Structure(16 + 32 * i, FlxG.height * 2/3);
+			var structure = new Structure(16 + 36 * i, FlxG.height * 2/3);
 			structures.add(structure);
 		}
 		
@@ -38,9 +38,12 @@ class PlayState extends FlxState
 	
 	private function structureCollision():Void
 	{
-		if (FlxG.overlap(player.shot, structures))
-		{
-			player.shot.kill();
-		}
+		FlxG.overlap(player.shot, structures, damageStructure);
+	}
+	
+	private function damageStructure(shot:Bullet, structure:Structure):Void
+	{
+		shot.kill();
+		structure.getDamage();
 	}
 }
