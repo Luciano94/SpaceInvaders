@@ -2,6 +2,7 @@ package states;
 
 import entities.Player;
 import entities.Bullet;
+import entities.Enemy;
 import entities.Structure;
 import flixel.FlxState;
 import flixel.FlxSprite;
@@ -12,6 +13,8 @@ class PlayState extends FlxState
 {
 	private var player:Player;
 	private var structures:FlxTypedGroup<Structure>;
+	private var enemys:FlxTypedGroup<Enemy>;
+	private var enemy: Enemy;
 	
 	override public function create():Void
 	{
@@ -19,6 +22,19 @@ class PlayState extends FlxState
 		
 		player = new Player(FlxG.width / 2, FlxG.height - 16);
 		structures = new FlxTypedGroup<Structure>();
+		enemys = new FlxTypedGroup<Enemy>();
+		
+		for (j in 1...6)
+		{
+			for (i in 1...9)
+			{
+				if (i == 0)
+					enemy = new Enemy((16 + (16 * i)), j * 10);
+				else
+					enemy = new Enemy(16 * i, j * 10);
+				enemys.add(enemy);
+			}
+		}
 		
 		for (i	in 0...4) 
 		{
@@ -27,6 +43,7 @@ class PlayState extends FlxState
 		}
 		
 		add(player);
+		add(enemys);
 		add(structures);
 	}
 
@@ -34,6 +51,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		structureCollision();
+		enemysCollision();
 	}
 	
 	private function structureCollision():Void
@@ -45,5 +63,13 @@ class PlayState extends FlxState
 	{
 		shot.kill();
 		structure.getDamage();
+	}
+	
+	private function enemysCollision(): Void
+	{
+		for (i in enemys.iterator())
+		{
+			i.killMe(player.shot);
+		}
 	}
 }
