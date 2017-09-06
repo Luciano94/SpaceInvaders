@@ -14,9 +14,9 @@ class PlayState extends FlxState
 {
 	private var player:Player;
 	private var structures:FlxTypedGroup<Structure>;
-	private var enemys:FlxTypedGroup<Enemy>;
-	private var enemy: Enemy;
-	private var eneBullet: EnemyBullet;
+	private var enemies:FlxTypedGroup<Enemy>;
+	private var enemy:Enemy;
+	private var eneBullet:EnemyBullet;
 	
 	override public function create():Void
 	{
@@ -24,15 +24,15 @@ class PlayState extends FlxState
 		
 		player = new Player(FlxG.width / 2, FlxG.height - 16);
 		structures = new FlxTypedGroup<Structure>();
-		enemys = new FlxTypedGroup<Enemy>();
-		eneBullet = new EnemyBullet(0, 160);
+		enemies = new FlxTypedGroup<Enemy>();
+		eneBullet = new EnemyBullet();
 		
 		for (i in 1...5)
 		{
 			for (j in 1...8)
 			{
 				enemy = new Enemy(16 * j, i * 10);
-				enemys.add(enemy);
+				enemies.add(enemy);
 			}
 		}
 		
@@ -43,7 +43,7 @@ class PlayState extends FlxState
 		}
 		
 		add(player);
-		add(enemys);
+		add(enemies);
 		add(eneBullet);
 		add(structures);
 	}
@@ -60,17 +60,18 @@ class PlayState extends FlxState
 	
 	private function enemysShot():Void
 	{
-		var randomEnemy = enemys.getRandom(); 
+		var randomEnemy = enemies.getRandom(); 
 		
 		if (randomEnemy.canShoot(eneBullet) && randomEnemy.alive)
 		{
-			randomEnemy.shot(eneBullet);
+			randomEnemy.shoot(eneBullet);
 		}
 	}
 	
 	private function structureCollision():Void
 	{
 		FlxG.overlap(player.shot, structures, damageStructure);
+		FlxG.overlap(eneBullet, structures, damageStructure2);
 	}
 	
 	private function damageStructure(shot:Bullet, structure:Structure):Void
@@ -79,15 +80,24 @@ class PlayState extends FlxState
 		structure.getDamage();
 	}
 	
+	private function damageStructure2(shot:EnemyBullet, structure:Structure):Void // Improve this!
+	{
+		shot.kill();
+		structure.getDamage();
+	}
+	
 	private function playersDeath():Void
 	{
 		if (FlxG.overlap(player, eneBullet))
+		{
+			eneBullet.kill();
 			player.kill();
+		}
 	}
 	
 	private function enemysCollision():Void
 	{
-		for (i in enemys.iterator())
+		for (i in enemies.iterator())
 		{
 			i.killMe(player.shot);
 			for (j in structures.iterator())

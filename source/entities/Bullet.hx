@@ -31,8 +31,6 @@ class Bullet extends FlxSprite
 	private function checkBoundaries():Void
 	{
 		if (y < 0)
-		{
 			kill();
-		}
 	}
 }

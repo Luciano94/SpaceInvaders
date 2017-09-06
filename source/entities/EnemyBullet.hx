@@ -2,6 +2,7 @@ package entities;
 
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.FlxG;
 
 class EnemyBullet extends FlxSprite 
 {
@@ -10,7 +11,7 @@ class EnemyBullet extends FlxSprite
 		super(X, Y, SimpleGraphic);
 		
 		makeGraphic(1, 2);
-		velocity.y = 50;
+		kill();
 	}
 	
 	override public function reset(X, Y)
@@ -18,5 +19,11 @@ class EnemyBullet extends FlxSprite
 		super.reset(X, Y);
 		
 		velocity.y = 50;
-	}	
+	}
+	
+	private function checkBoundaries():Void
+	{
+		if (y > FlxG.height)
+			kill();
+	}
 }

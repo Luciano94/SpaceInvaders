@@ -9,7 +9,7 @@ import entities.EnemyBullet;
 class Enemy extends FlxSprite 
 {
 	private var origenX:Float;
-	private var balin:EnemyBullet;
+	//private var balin:EnemyBullet;
 	private var time:Int;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -19,7 +19,7 @@ class Enemy extends FlxSprite
 		makeGraphic(8, 8);
 		velocity.x = 8;
 		origenX = X;
-		time = 15 ;
+		time = 10 ;
 	}
 	
 	override public function update(elapsed:Float):Void
@@ -51,9 +51,9 @@ class Enemy extends FlxSprite
 	
 	public function canShoot(bullet:EnemyBullet):Bool
 	{
-		if (bullet.y > 150 && time == 0)
+		if (!bullet.alive && time == 0)
 		{
-			time = 15;
+			time = 10;
 			return true;
 		}
 		
@@ -61,8 +61,8 @@ class Enemy extends FlxSprite
 		return false;
 	}
 	
-	public function shot(bullet:EnemyBullet):Void
+	public function shoot(bullet:EnemyBullet):Void
 	{
-		bullet.reset(x, y);
+		bullet.reset(x + width / 2, y);
 	}
 }

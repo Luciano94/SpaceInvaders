@@ -7,6 +7,7 @@ import flixel.FlxG;
 class Player extends FlxSprite 
 {
 	static private var normalSpeed:Int = 80;
+	static private var lives = 3;
 	public var shot(get, null):Bullet;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -23,6 +24,15 @@ class Player extends FlxSprite
 		super.update(elapsed);
 		move();
 		shoot();
+	}
+	
+	override public function kill():Void
+	{
+		super.kill();
+		
+		lives--;
+		if (lives > 0)
+			reset(FlxG.width / 2, FlxG.height - 16);
 	}
 	
 	private function move():Void
