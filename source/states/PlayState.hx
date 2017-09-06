@@ -5,10 +5,13 @@ import entities.Bullet;
 import entities.EnemyBullet;
 import entities.Enemy;
 import entities.Structure;
+import entities.UFO;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.text.FlxText;
+import flixel.math.FlxRandom;
 
 class PlayState extends FlxState
 {
@@ -17,6 +20,11 @@ class PlayState extends FlxState
 	private var enemies:FlxTypedGroup<Enemy>;
 	private var enemy:Enemy;
 	private var eneBullet:EnemyBullet;
+	private var lives:FlxText;
+	private var score:FlxText;
+	private var ufo:UFO;
+	private var timeCounter:Float;
+	private var ufoSpawnTimeCounter:Float;
 	
 	override public function create():Void
 	{
@@ -26,6 +34,11 @@ class PlayState extends FlxState
 		structures = new FlxTypedGroup<Structure>();
 		enemies = new FlxTypedGroup<Enemy>();
 		eneBullet = new EnemyBullet();
+		lives = new FlxText(FlxG.width * 2 / 3, 0, 0, 8);
+		score = new FlxText(16, 0, 0, 8);
+		ufo = new UFO();
+		timeCounter = 0;
+		ufoSpawnTimeCounter = 0;
 		
 		for (i in 1...5)
 		{
@@ -46,16 +59,22 @@ class PlayState extends FlxState
 		add(enemies);
 		add(eneBullet);
 		add(structures);
+		add(lives);
+		add(score);
+		add(ufo);
 	}
 
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
 		
+		lives.text = "Lives: " + player.lives;
+		score.text = "Score: " + Reg.score;
 		structureCollision();
 		enemysCollision();
 		enemysShot();
 		playersDeath();
+		spawnUFO(elapsed, ufoSpawnTimeCounter, timeCounter);
 	}
 	
 	private function enemysShot():Void
@@ -105,6 +124,16 @@ class PlayState extends FlxState
 				if (FlxG.overlap(i, j))
 					j.getDamage();
 			}
+		}
+	}
+	
+	private function spawnUFO(elapsed:Float, timeAtLastAppearance:Float, timeSinceStart:Float):Void
+	{
+		timeSinceStart += elapsed;
+		if (timeSinceStart - timeAtLastAppearance > 10)
+		{
+			timeAtLastAppearance = timeSinceStart;
+			ufo.reset(0, 8);
 		}
 	}
 }

@@ -7,7 +7,7 @@ import flixel.FlxG;
 class Player extends FlxSprite 
 {
 	static private var normalSpeed:Int = 80;
-	static private var lives = 3;
+	public var lives(get, null):Int = Reg.maxLives;
 	public var shot(get, null):Bullet;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -31,6 +31,7 @@ class Player extends FlxSprite
 		super.kill();
 		
 		lives--;
+		Reg.score = 0;
 		if (lives > 0)
 			reset(FlxG.width / 2, FlxG.height - 16);
 	}
@@ -66,5 +67,10 @@ class Player extends FlxSprite
 	function get_shot():Bullet 
 	{
 		return shot;
+	}
+	
+	function get_lives():Int 
+	{
+		return lives;
 	}
 }

@@ -3,6 +3,6 @@ package;
 
 class Reg 
 {
-	inline static public maxLives = 3;
-	static public score = 0;
+	inline static public var maxLives:Int = 3;
+	static public var score:Int = 0;
 }
