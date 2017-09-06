@@ -60,7 +60,7 @@ class PlayState extends FlxState
 	
 	private function enemysShot():Void
 	{
-		var randomEnemy = enemies.getRandom(); 
+		var randomEnemy:Enemy = enemies.getRandom(); 
 		
 		if (randomEnemy.canShoot(eneBullet) && randomEnemy.alive)
 		{

@@ -9,7 +9,6 @@ import entities.EnemyBullet;
 class Enemy extends FlxSprite 
 {
 	private var origenX:Float;
-	//private var balin:EnemyBullet;
 	private var time:Int;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
