@@ -27,14 +27,11 @@ class PlayState extends FlxState
 		enemys = new FlxTypedGroup<Enemy>();
 		eneBullet = new EnemyBullet(0, 160);
 		
-		for (j in 1...5)
+		for (i in 1...5)
 		{
-			for (i in 1...8)
+			for (j in 1...8)
 			{
-				if (i == 0)
-					enemy = new Enemy((16 + (16 * i)), j * 10);
-				else
-					enemy = new Enemy(16 * i, j * 10);
+				enemy = new Enemy(16 * j, i * 10);
 				enemys.add(enemy);
 			}
 		}
@@ -54,20 +51,20 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
 		structureCollision();
 		enemysCollision();
 		enemysShot();
-		playerDeath();
-		
-		
+		playersDeath();
 	}
 	
-	private function enemysShot(){
+	private function enemysShot():Void
+	{
+		var randomEnemy = enemys.getRandom(); 
 		
-		var i = enemys.getRandom(); 
-		
-		if ((i.canShot(eneBullet)) && (i.alive)){
-			i.shot(eneBullet);
+		if (randomEnemy.canShoot(eneBullet) && randomEnemy.alive)
+		{
+			randomEnemy.shot(eneBullet);
 		}
 	}
 	
@@ -82,13 +79,13 @@ class PlayState extends FlxState
 		structure.getDamage();
 	}
 	
-	private function playerDeath()
+	private function playersDeath():Void
 	{
 		if (FlxG.overlap(player, eneBullet))
 			player.kill();
 	}
 	
-	private function enemysCollision(): Void
+	private function enemysCollision():Void
 	{
 		for (i in enemys.iterator())
 		{

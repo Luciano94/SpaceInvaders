@@ -13,7 +13,6 @@ class Bullet extends FlxSprite
 		super(X, Y, SimpleGraphic);
 		
 		makeGraphic(1, 2);
-		
 		kill();
 	}
 	

@@ -17,6 +17,7 @@ class Structure extends FlxSprite
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		
 		checkResistance();
 	}
 	
