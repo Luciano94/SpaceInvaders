@@ -22,6 +22,7 @@ class Player extends FlxSprite
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
 		move();
 		shoot();
 	}
@@ -40,6 +41,7 @@ class Player extends FlxSprite
 			if (Reg.score > Reg.highestScore)
 				Reg.highestScore = Reg.score;
 			Reg.score = 0;
+			Reg.gameOver = true;
 		}
 	}
 	

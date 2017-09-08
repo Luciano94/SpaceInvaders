@@ -73,15 +73,11 @@ class PlayState extends FlxState
 	}
 
 	override public function update(elapsed:Float):Void
-	{
-		super.update(elapsed);
-		
-		lives.text = "Lives: " + player.lives;
-		score.text = "Score: " + Reg.score;
-		highestScore.text = "Best Score: " + Reg.highestScore;
-		
+	{	
 		if (!Reg.gamePaused && !Reg.gameOver)
 		{
+			super.update(elapsed);
+			
 			otherCollisions();
 			enemysCollision();
 			enemyMovement();
@@ -89,6 +85,10 @@ class PlayState extends FlxState
 			playersDeath();
 			spawnUFO(elapsed);
 		}
+		
+		lives.text = "Lives: " + player.lives;
+		score.text = "Score: " + Reg.score;
+		highestScore.text = "Best Score: " + Reg.highestScore;
 		
 		if (FlxG.keys.justPressed.ENTER && !Reg.gameOver)
 		{
@@ -100,7 +100,6 @@ class PlayState extends FlxState
 		{
 			gameOver.visible = true;
 		}
-
 	}
 	
 	private function enemysShot():Void
