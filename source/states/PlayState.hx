@@ -23,6 +23,8 @@ class PlayState extends FlxState
 	private var lives:FlxText;
 	private var score:FlxText;
 	private var highestScore:FlxText;
+	private var paused:FlxText;
+	private var gameOver:FlxText;
 	private var ufo:UFO;
 	
 	override public function create():Void
@@ -35,7 +37,9 @@ class PlayState extends FlxState
 		eneBullet = new EnemyBullet();
 		lives = new FlxText(FlxG.width / 2 - 24, 0, 0, 8);
 		score = new FlxText(2, 0, 0, 8);
-		highestScore = new FlxText(FlxG.width * 2/3 - 12, 0, 0, 8);
+		highestScore = new FlxText(FlxG.width * 2 / 3 - 12, 0, 0, 8);
+		paused = new FlxText(FlxG.width / 2 - 16, FlxG.height / 2 - 8, 0, "Paused", 8);
+		gameOver = new FlxText(FlxG.width / 2 - 16, FlxG.height / 2 - 8, 0, "Game Over", 8);
 		ufo = new UFO();
 		
 		for (i in 1...5)
@@ -53,6 +57,9 @@ class PlayState extends FlxState
 			structures.add(structure);
 		}
 		
+		paused.visible = false;
+		gameOver.visible = false;
+		
 		add(player);
 		add(enemies);
 		add(eneBullet);
@@ -60,6 +67,8 @@ class PlayState extends FlxState
 		add(lives);
 		add(score);
 		add(highestScore);
+		add(paused);
+		add(gameOver);
 		add(ufo);
 	}
 
@@ -70,12 +79,28 @@ class PlayState extends FlxState
 		lives.text = "Lives: " + player.lives;
 		score.text = "Score: " + Reg.score;
 		highestScore.text = "Best Score: " + Reg.highestScore;
-		otherCollisions();
-		enemysCollision();
-		enemyMovment();
-		enemysShot();
-		playersDeath();
-		spawnUFO(elapsed);
+		
+		if (!Reg.gamePaused && !Reg.gameOver)
+		{
+			otherCollisions();
+			enemysCollision();
+			enemyMovement();
+			enemysShot();
+			playersDeath();
+			spawnUFO(elapsed);
+		}
+		
+		if (FlxG.keys.justPressed.ENTER && !Reg.gameOver)
+		{
+			Reg.gamePaused = !Reg.gamePaused;
+			paused.visible = !paused.visible;
+		}
+		
+		if (Reg.gameOver)
+		{
+			gameOver.visible = true;
+		}
+
 	}
 	
 	private function enemysShot():Void
@@ -123,7 +148,7 @@ class PlayState extends FlxState
 		{
 			if (i.killMe(player.shot))
 			{
-				movmentVelocity();
+				movementVelocity();
 			}
 			for (j in structures.iterator())
 			{
@@ -133,7 +158,7 @@ class PlayState extends FlxState
 		}
 	}
 	// Funcion que se encarga del movimiento del grupo de enemigos
-	private function enemyMovment():Void 
+	private function enemyMovement():Void 
 	{	
 		var back:Enemy = enemies.members[enemies.length - 1];
 		var forward:Enemy = enemies.members[0];
@@ -153,7 +178,7 @@ class PlayState extends FlxState
 				j.y += 4;
 			}
 		}
-		if ( back.x > FlxG.width - 8)
+		if (back.x > FlxG.width - 8)
 		{
 			for (j in enemies.iterator())
 			{
@@ -163,7 +188,7 @@ class PlayState extends FlxState
 		}
 	}	
 	// funcion que acelera a los enemigos cuando uno muere
-	private function movmentVelocity():Void 
+	private function movementVelocity():Void 
 	{
 		for (i in enemies.iterator())
 		{
