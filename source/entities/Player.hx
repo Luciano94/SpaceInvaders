@@ -31,9 +31,16 @@ class Player extends FlxSprite
 		super.kill();
 		
 		lives--;
-		Reg.score = 0;
 		if (lives > 0)
+		{
 			reset(FlxG.width / 2, FlxG.height - 16);
+		}
+		else
+		{
+			if (Reg.score > Reg.highestScore)
+				Reg.highestScore = Reg.score;
+			Reg.score = 0;
+		}
 	}
 	
 	private function move():Void

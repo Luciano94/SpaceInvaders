@@ -22,6 +22,7 @@ class PlayState extends FlxState
 	private var eneBullet:EnemyBullet;
 	private var lives:FlxText;
 	private var score:FlxText;
+	private var highestScore:FlxText;
 	private var ufo:UFO;
 	
 	override public function create():Void
@@ -32,8 +33,9 @@ class PlayState extends FlxState
 		structures = new FlxTypedGroup<Structure>();
 		enemies = new FlxTypedGroup<Enemy>();
 		eneBullet = new EnemyBullet();
-		lives = new FlxText(FlxG.width * 2 / 3, 0, 0, 8);
-		score = new FlxText(16, 0, 0, 8);
+		lives = new FlxText(FlxG.width / 2 - 24, 0, 0, 8);
+		score = new FlxText(2, 0, 0, 8);
+		highestScore = new FlxText(FlxG.width * 2/3 - 12, 0, 0, 8);
 		ufo = new UFO();
 		
 		for (i in 1...5)
@@ -57,6 +59,7 @@ class PlayState extends FlxState
 		add(structures);
 		add(lives);
 		add(score);
+		add(highestScore);
 		add(ufo);
 	}
 
@@ -66,6 +69,7 @@ class PlayState extends FlxState
 		
 		lives.text = "Lives: " + player.lives;
 		score.text = "Score: " + Reg.score;
+		highestScore.text = "Best Score: " + Reg.highestScore;
 		otherCollisions();
 		enemysCollision();
 		enemysShot();
@@ -131,7 +135,7 @@ class PlayState extends FlxState
 		if (Reg.timeSinceStart - Reg.timeAtLastUfoAppearance > Reg.ufoSpawnTime)
 		{
 			Reg.timeAtLastUfoAppearance = Reg.timeSinceStart;
-			ufo.reset(0, 8);
+			ufo.reset(0, 16);
 		}
 	}
 }
