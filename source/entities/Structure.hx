@@ -11,7 +11,8 @@ class Structure extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		
-		makeGraphic(16, 4);
+		loadGraphic(AssetPaths.EstructuraEntera__png, true, 16, 4);
+		
 	}
 	
 	override public function update(elapsed:Float)
@@ -31,6 +32,14 @@ class Structure extends FlxSprite
 		if (hitPoints <= 0)
 		{
 			destroy();
+		}
+		if (hitPoints == 2)
+		{
+			loadGraphic(AssetPaths.ed1__png, true, 16, 4);
+		}
+		if (hitPoints == 1)
+		{
+			loadGraphic(AssetPaths.ed2__png, true, 16, 4);
 		}
 	}
 }

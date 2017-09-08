@@ -10,7 +10,7 @@ class EnemyBullet extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		
-		makeGraphic(1, 2);
+		loadGraphic(AssetPaths.BalaEnemigo__png, true, 1, 2);
 		kill();
 	}
 	

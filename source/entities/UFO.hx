@@ -13,7 +13,9 @@ class UFO extends FlxSprite
 		super(X, Y, SimpleGraphic);
 		
 		hasJustBeenDestroyed = false;
-		makeGraphic(24, 8);
+		loadGraphic(AssetPaths.Especial__png, true, 8, 8);
+		animation.add("idle", [0, 1, 2, 3], 6, true);
+		animation.play("idle");
 		kill();
 	}
 	

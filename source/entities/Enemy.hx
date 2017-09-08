@@ -15,7 +15,9 @@ class Enemy extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		
-		makeGraphic(8, 8);
+		loadGraphic(AssetPaths.Enemigo__png, true, 8, 8);
+		animation.add("idle", [0, 1, 2, 3], 6, true);
+		animation.play("idle");
 		velocity.x = 8;
 		origenX = X;
 		time = 10 ;

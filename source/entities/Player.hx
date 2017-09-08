@@ -14,7 +14,7 @@ class Player extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		
-		makeGraphic(8, 8);
+		loadGraphic(AssetPaths.player__png, true, 8, 8);
 		shot = new Bullet();	
 		FlxG.state.add(shot);
 	}

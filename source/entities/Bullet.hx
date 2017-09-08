@@ -12,7 +12,7 @@ class Bullet extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		
-		makeGraphic(1, 2);
+		loadGraphic(AssetPaths.bala__png, true, 2, 3);
 		kill();
 	}
 	
