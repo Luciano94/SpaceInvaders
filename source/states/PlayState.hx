@@ -23,8 +23,6 @@ class PlayState extends FlxState
 	private var lives:FlxText;
 	private var score:FlxText;
 	private var ufo:UFO;
-	private var timeCounter:Float;
-	private var ufoSpawnTimeCounter:Float;
 	
 	override public function create():Void
 	{
@@ -37,8 +35,6 @@ class PlayState extends FlxState
 		lives = new FlxText(FlxG.width * 2 / 3, 0, 0, 8);
 		score = new FlxText(16, 0, 0, 8);
 		ufo = new UFO();
-		timeCounter = 0;
-		ufoSpawnTimeCounter = 0;
 		
 		for (i in 1...5)
 		{
@@ -70,11 +66,11 @@ class PlayState extends FlxState
 		
 		lives.text = "Lives: " + player.lives;
 		score.text = "Score: " + Reg.score;
-		structureCollision();
+		otherCollisions();
 		enemysCollision();
 		enemysShot();
 		playersDeath();
-		spawnUFO(elapsed, ufoSpawnTimeCounter, timeCounter);
+		spawnUFO(elapsed);
 	}
 	
 	private function enemysShot():Void
@@ -87,22 +83,24 @@ class PlayState extends FlxState
 		}
 	}
 	
-	private function structureCollision():Void
+	private function otherCollisions():Void
 	{
 		FlxG.overlap(player.shot, structures, damageStructure);
-		FlxG.overlap(eneBullet, structures, damageStructure2);
+		FlxG.overlap(eneBullet, structures, damageStructure);
+		FlxG.overlap(player.shot, ufo, damageUfo);
 	}
 	
-	private function damageStructure(shot:Bullet, structure:Structure):Void
+	private function damageStructure(shot, structure:Structure):Void
 	{
 		shot.kill();
 		structure.getDamage();
 	}
 	
-	private function damageStructure2(shot:EnemyBullet, structure:Structure):Void // Improve this!
+	private function damageUfo(shot, ufo:UFO):Void
 	{
 		shot.kill();
-		structure.getDamage();
+		ufo.hasJustBeenDestroyed = true;
+		ufo.kill();
 	}
 	
 	private function playersDeath():Void
@@ -127,12 +125,12 @@ class PlayState extends FlxState
 		}
 	}
 	
-	private function spawnUFO(elapsed:Float, timeAtLastAppearance:Float, timeSinceStart:Float):Void
+	private function spawnUFO(elapsed:Float):Void
 	{
-		timeSinceStart += elapsed;
-		if (timeSinceStart - timeAtLastAppearance > 10)
+		Reg.timeSinceStart += elapsed;
+		if (Reg.timeSinceStart - Reg.timeAtLastUfoAppearance > Reg.ufoSpawnTime)
 		{
-			timeAtLastAppearance = timeSinceStart;
+			Reg.timeAtLastUfoAppearance = Reg.timeSinceStart;
 			ufo.reset(0, 8);
 		}
 	}

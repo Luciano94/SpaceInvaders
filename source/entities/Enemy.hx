@@ -43,7 +43,7 @@ class Enemy extends FlxSprite
 	{
 		if (FlxG.overlap(this, bullet))
 		{
-			Reg.score += 10;
+			Reg.score += Reg.enemyPoints;
 			bullet.kill();
 			kill();
 		}
