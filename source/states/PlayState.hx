@@ -139,6 +139,12 @@ class PlayState extends FlxState
 			eneBullet.kill();
 			player.kill();
 		}
+		if (FlxG.overlap(player, enemies))
+		{
+			if (Reg.score > Reg.highestScore)
+				Reg.highestScore = Reg.score;
+			Reg.gameOver = true;
+		}
 	}
 	
 	private function enemysCollision():Void

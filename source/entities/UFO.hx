@@ -6,6 +6,7 @@ import flixel.FlxG;
 
 class UFO extends FlxSprite 
 {
+	private var speed:Int = 25;
 	public var hasJustBeenDestroyed(null, set):Bool;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -29,7 +30,8 @@ class UFO extends FlxSprite
 		super.reset(X, Y);
 		
 		hasJustBeenDestroyed = false;
-		velocity.x = 25;
+		//speed += Reg.randomNumber.float(5, 10, Reg.excluded);
+		velocity.x = speed;
 	}
 	
 	override public function kill():Void
