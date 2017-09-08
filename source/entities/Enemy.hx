@@ -21,32 +21,16 @@ class Enemy extends FlxSprite
 		time = 10 ;
 	}
 	
-	override public function update(elapsed:Float):Void
-	{
-		if (x < origenX - 8)
-		{
-			x = origenX - 8;
-			velocity.x = -velocity.x;
-			velocity.y++;
-		}
-		
-		if (x > origenX + 16) 
-		{
-			x = origenX + 16;
-			velocity.x = -velocity.x;
-		}
-			
-		super.update(elapsed);
-	}
-	
-	public function killMe(bullet:Bullet):Void
+	public function killMe(bullet:Bullet):Bool
 	{
 		if (FlxG.overlap(this, bullet))
 		{
 			Reg.score += Reg.enemyPoints;
 			bullet.kill();
 			kill();
+			return true;
 		}
+		return false;
 	}
 	
 	public function canShoot(bullet:EnemyBullet):Bool
