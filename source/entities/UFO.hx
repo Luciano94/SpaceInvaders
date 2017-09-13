@@ -32,7 +32,7 @@ class UFO extends FlxSprite
 		super.reset(X, Y);
 		
 		hasJustBeenDestroyed = false;
-		//speed += Reg.randomNumber.float(5, 10, Reg.excluded);
+		speed += Reg.randomNumber.int(5, 10, Reg.excluded);
 		velocity.x = speed;
 	}
 	

@@ -12,6 +12,7 @@ import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.math.FlxRandom;
+import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
@@ -35,11 +36,11 @@ class PlayState extends FlxState
 		structures = new FlxTypedGroup<Structure>();
 		enemies = new FlxTypedGroup<Enemy>();
 		eneBullet = new EnemyBullet();
-		lives = new FlxText(FlxG.width / 2 - 24, 0, 0, 8);
-		score = new FlxText(2, 0, 0, 8);
-		highestScore = new FlxText(FlxG.width * 2 / 3 - 12, 0, 0, 8);
-		paused = new FlxText(FlxG.width / 2 - 16, FlxG.height / 2 - 8, 0, "Paused", 8);
-		gameOver = new FlxText(FlxG.width / 2 - 16, FlxG.height / 2 - 8, 0, "Game Over", 8);
+		lives = new FlxText(0, 0, 160, 8);
+		score = new FlxText(0, 0, 160, 8);
+		highestScore = new FlxText(0, 0, 160, 8);
+		paused = new FlxText(0, FlxG.height / 2 - 4, 160, "Paused", 8);
+		gameOver = new FlxText(0,FlxG.height / 2 - 4, 160, "Game Over", 8);
 		ufo = new UFO();
 		
 		for (i in 1...5)
@@ -57,8 +58,15 @@ class PlayState extends FlxState
 			structures.add(structure);
 		}
 		
+		highestScore.visible = false;
 		paused.visible = false;
 		gameOver.visible = false;
+		
+		lives.setFormat(8, 0x04FF00, FlxTextAlign.CENTER);
+		score.setFormat(8, 0xFFF700, FlxTextAlign.LEFT);
+		highestScore.setFormat(8, 0xFF0000, FlxTextAlign.RIGHT);
+		paused.setFormat(8, 0xFFF700, FlxTextAlign.CENTER);
+		gameOver.setFormat(8, 0xFF0000, FlxTextAlign.CENTER);
 		
 		add(player);
 		add(enemies);
@@ -88,7 +96,12 @@ class PlayState extends FlxState
 		
 		lives.text = "Lives: " + player.lives;
 		score.text = "Score: " + Reg.score;
-		highestScore.text = "Best Score: " + Reg.highestScore;
+		highestScore.text = "Best: " + Reg.highestScore;
+		
+		if (Reg.highestScore > 0)
+		{
+			highestScore.visible = true;
+		}
 		
 		if (FlxG.keys.justPressed.ENTER && !Reg.gameOver)
 		{
