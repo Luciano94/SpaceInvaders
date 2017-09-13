@@ -112,6 +112,10 @@ class PlayState extends FlxState
 		if (Reg.gameOver)
 		{
 			gameOver.visible = true;
+			if (FlxG.keys.justPressed.R)
+			{
+				restartGame();
+			}
 		}
 	}
 	
@@ -225,5 +229,44 @@ class PlayState extends FlxState
 			Reg.timeAtLastUfoAppearance = Reg.timeSinceStart;
 			ufo.reset(0, 16);
 		}
+	}
+	
+	private function restartGame():Void
+	{
+		player.destroy();
+		enemies.destroy();
+		structures.destroy();
+		ufo.destroy();
+		
+		Reg.gameOver = false;
+		Reg.timeSinceStart = 0;
+		Reg.timeAtLastUfoAppearance = 0;
+		
+		player = new Player(FlxG.width / 2, FlxG.height - 16);
+		enemies = new FlxTypedGroup<Enemy>();
+		structures = new FlxTypedGroup<Structure>();
+		ufo = new UFO();
+						
+		for (i in 1...5)
+		{
+			for (j in 1...8)
+			{
+				enemy = new Enemy(16 * j, i * 10);
+				enemies.add(enemy);
+			}
+		}
+		
+		for (i	in 0...4) 
+		{
+			var structure = new Structure(16 + 36 * i, FlxG.height * 2/3);
+			structures.add(structure);
+		}
+		
+		gameOver.visible = false;
+		
+		add(player);
+		add(enemies);
+		add(structures);
+		add(ufo);
 	}
 }
