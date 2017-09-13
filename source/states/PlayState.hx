@@ -93,6 +93,7 @@ class PlayState extends FlxState
 			playersDeath();
 			bulletCollision();
 			spawnUFO(elapsed);
+			resetEnemies();
 		}
 		
 		lives.text = "Lives: " + player.lives;
@@ -239,10 +240,32 @@ class PlayState extends FlxState
 		}
 	}
 	
+	private function resetEnemies():Void
+	{
+		if (enemies.countDead() == 28)
+		{
+			enemies.destroy();
+			
+			enemies = new FlxTypedGroup<Enemy>();
+			
+			for (i in 1...5)
+			{
+				for (j in 1...8)
+				{
+					enemy = new Enemy(16 * j, i * 10);
+					enemies.add(enemy);
+				}
+			}
+			
+			add(enemies);
+		}
+	}
+	
 	private function restartGame():Void
 	{
 		player.destroy();
 		enemies.destroy();
+		eneBullet.destroy();
 		structures.destroy();
 		ufo.destroy();
 		
@@ -252,6 +275,7 @@ class PlayState extends FlxState
 		
 		player = new Player(FlxG.width / 2, FlxG.height - 16);
 		enemies = new FlxTypedGroup<Enemy>();
+		eneBullet = new EnemyBullet();
 		structures = new FlxTypedGroup<Structure>();
 		ufo = new UFO();
 						
@@ -274,6 +298,7 @@ class PlayState extends FlxState
 		
 		add(player);
 		add(enemies);
+		add(eneBullet);
 		add(structures);
 		add(ufo);
 	}
