@@ -69,7 +69,7 @@ class Player extends FlxSprite
 	{
 		if (FlxG.keys.justPressed.SPACE && !shot.alive)
 		{
-			shot.reset(x + width / 2, y);
+			shot.reset(x + width / 2 - shot.width / 2, y);
 		}
 	}
 	

@@ -91,6 +91,7 @@ class PlayState extends FlxState
 			enemyMovement();
 			enemysShot();
 			playersDeath();
+			bulletCollision();
 			spawnUFO(elapsed);
 		}
 		
@@ -159,7 +160,14 @@ class PlayState extends FlxState
 			Reg.gameOver = true;
 		}
 	}
-	
+	private function bulletCollision():Void
+	{
+		if (FlxG.overlap(eneBullet, player.shot))
+		{
+			eneBullet.kill();
+			player.shot.kill();
+		}
+	}
 	private function enemysCollision():Void
 	{
 		for (i in enemies.iterator())
