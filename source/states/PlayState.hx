@@ -85,12 +85,14 @@ class PlayState extends FlxState
 		if (!Reg.gamePaused && !Reg.gameOver)
 		{
 			super.update(elapsed);
-			
 			otherCollisions();
 			enemysCollision();
 			enemyMovement();
 			enemysShot();
-			playersDeath();
+			if (player.get_hit()==false)
+			{
+			 playersDeath();
+			}
 			bulletCollision();
 			spawnUFO(elapsed);
 		}
