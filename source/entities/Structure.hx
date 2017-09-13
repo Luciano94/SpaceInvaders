@@ -31,7 +31,7 @@ class Structure extends FlxSprite
 	{
 		if (hitPoints <= 0)
 		{
-			destroy();
+			kill();
 		}
 		if (hitPoints == 2)
 		{
