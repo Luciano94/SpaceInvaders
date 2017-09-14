@@ -35,15 +35,16 @@ class Player extends FlxSprite
 	
 	override public function kill():Void
 	{
-		loadGraphic(AssetPaths.player__png, true, 8, 8);
-		animation.add("damage", [0, 1], 6, true);
-		animation.play("damage");
-		
+
 		lives--;
 		if (lives > 0)
 		{
+			loadGraphic(AssetPaths.player__png, true, 8, 8);
+			animation.add("damage", [0, 1], 6, true);
+			animation.play("damage");
 			reset(FlxG.width / 2, FlxG.height - 16);
 			hasJustBeenHit = true;
+			FlxG.sound.play(AssetPaths.playerDeath__wav);
 		}
 		else
 		{
@@ -51,6 +52,7 @@ class Player extends FlxSprite
 				Reg.highestScore = Reg.score;
 			Reg.score = 0;
 			Reg.gameOver = true;
+			FlxG.sound.play(AssetPaths.gameOver__wav);
 		}
 	}
 	
@@ -79,6 +81,7 @@ class Player extends FlxSprite
 		if (FlxG.keys.justPressed.SPACE && !shot.alive)
 		{
 			shot.reset(x + width / 2 - shot.width / 2, y);
+			FlxG.sound.play(AssetPaths.playerShot__wav);
 		}
 	}
 	

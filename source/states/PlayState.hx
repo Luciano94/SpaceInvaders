@@ -141,6 +141,7 @@ class PlayState extends FlxState
 	{
 		shot.kill();
 		structure.getDamage();
+		FlxG.sound.play(AssetPaths.structureDamage__wav);
 	}
 	
 	private function damageUfo(shot, ufo:UFO):Void
@@ -165,6 +166,7 @@ class PlayState extends FlxState
 					Reg.highestScore = Reg.score;
 				Reg.score = 0;
 				Reg.gameOver = true;
+				FlxG.sound.play(AssetPaths.gameOver__wav);
 			}
 		}
 	}

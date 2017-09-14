@@ -50,5 +50,6 @@ class Enemy extends FlxSprite
 	public function shoot(bullet:EnemyBullet):Void
 	{
 		bullet.reset(x + width / 2, y);
+		FlxG.sound.play(AssetPaths.enemyShot__wav);
 	}
 }
