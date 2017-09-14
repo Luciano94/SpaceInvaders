@@ -89,10 +89,7 @@ class PlayState extends FlxState
 			enemysCollision();
 			enemyMovement();
 			enemysShot();
-			if (player.get_hit()==false)
-			{
-			 playersDeath();
-			}
+			playersDeath();
 			bulletCollision();
 			spawnUFO(elapsed);
 			resetEnemies();
@@ -155,16 +152,20 @@ class PlayState extends FlxState
 	
 	private function playersDeath():Void
 	{
-		if (FlxG.overlap(player, eneBullet))
+		if (!player.get_hasJustBeenHit())
 		{
-			eneBullet.kill();
-			player.kill();
-		}
-		if (FlxG.overlap(player, enemies))
-		{
-			if (Reg.score > Reg.highestScore)
-				Reg.highestScore = Reg.score;
-			Reg.gameOver = true;
+			if (FlxG.overlap(player, eneBullet))
+			{
+				eneBullet.kill();
+				player.kill();
+			}
+			if (FlxG.overlap(player, enemies))
+			{
+				if (Reg.score > Reg.highestScore)
+					Reg.highestScore = Reg.score;
+				Reg.score = 0;
+				Reg.gameOver = true;
+			}
 		}
 	}
 	private function bulletCollision():Void
@@ -266,6 +267,7 @@ class PlayState extends FlxState
 	private function restartGame():Void
 	{
 		player.destroy();
+		player.shot.destroy();
 		enemies.destroy();
 		eneBullet.destroy();
 		structures.destroy();
