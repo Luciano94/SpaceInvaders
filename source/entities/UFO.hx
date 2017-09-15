@@ -32,8 +32,9 @@ class UFO extends FlxSprite
 		super.reset(X, Y);
 		
 		hasJustBeenDestroyed = false;
-		speed += Reg.randomNumber.int(5, 10, Reg.excluded);
+		speed += Reg.randomNumber.int(2, 6);
 		velocity.x = speed;
+		FlxG.sound.play(AssetPaths.ufoSpawn__wav);
 	}
 	
 	override public function kill():Void
@@ -41,7 +42,10 @@ class UFO extends FlxSprite
 		super.kill();
 		
 		if (hasJustBeenDestroyed)
+		{
 			Reg.score += Reg.ufoPoints;
+			FlxG.sound.play(AssetPaths.ufoDeath__wav);
+		}
 	}
 	
 	public function checkBoundaries():Void

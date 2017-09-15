@@ -30,6 +30,7 @@ class Enemy extends FlxSprite
 			Reg.score += Reg.enemyPoints;
 			bullet.kill();
 			kill();
+			FlxG.sound.play(AssetPaths.enemyDeath__wav);
 			return true;
 		}
 		return false;

@@ -40,7 +40,7 @@ class PlayState extends FlxState
 		score = new FlxText(0, 0, 160, 8);
 		highestScore = new FlxText(0, 0, 160, 8);
 		paused = new FlxText(0, FlxG.height / 2 - 4, 160, "Paused", 8);
-		gameOver = new FlxText(0,FlxG.height / 2 - 4, 160, "Game Over", 8);
+		gameOver = new FlxText(0, FlxG.height / 2 - 4, 160, "Game Over: press 'r' to restart", 8);
 		ufo = new UFO();
 		
 		for (i in 1...5)
@@ -66,7 +66,7 @@ class PlayState extends FlxState
 		score.setFormat(8, 0xFFF700, FlxTextAlign.LEFT);
 		highestScore.setFormat(8, 0xFF0000, FlxTextAlign.RIGHT);
 		paused.setFormat(8, 0xFFF700, FlxTextAlign.CENTER);
-		gameOver.setFormat(8, 0xFF0000, FlxTextAlign.CENTER);
+		gameOver.setFormat(8, 0xFFF700, FlxTextAlign.CENTER);
 		
 		add(player);
 		add(enemies);
