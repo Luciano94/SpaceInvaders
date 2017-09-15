@@ -209,20 +209,20 @@ class PlayState extends FlxState
 			if (down.y < i.y)
 				down = i;
 		}
-		if (down.y  == FlxG.height)
+		if (down.y  == FlxG.height + 16)
 		{
-				if (Reg.score > Reg.highestScore)
-					Reg.highestScore = Reg.score;
-				Reg.score = 0;
-				Reg.gameOver = true;
-				FlxG.sound.play(AssetPaths.gameOver__wav);
+			if (Reg.score > Reg.highestScore)
+				Reg.highestScore = Reg.score;
+			Reg.score = 0;
+			Reg.gameOver = true;
+			FlxG.sound.play(AssetPaths.gameOver__wav);
 		}
 		if (forward.x < 0)
 		{
 			for (j in enemies.iterator())
 			{
 				j.velocity.x = -j.velocity.x;
-				j.y += 8;
+				j.y += 4;
 			}
 		}
 		if (back.x > FlxG.width - 8)
@@ -230,7 +230,7 @@ class PlayState extends FlxState
 			for (j in enemies.iterator())
 			{
 				j.velocity.x = -j.velocity.x;
-				j.y += 8;
+				j.y += 4;
 			}
 		}
 	}	
@@ -240,10 +240,10 @@ class PlayState extends FlxState
 		for (i in enemies.iterator())
 		{
 			if (i.velocity.x < 0)
-				i.velocity.x -=3;
+				i.velocity.x -= 4;
 			else 
 				if (i.velocity.x > 0) 
-					i.velocity.x +=3;
+					i.velocity.x += 4;
 		}
 	}
 	

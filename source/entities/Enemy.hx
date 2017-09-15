@@ -40,7 +40,7 @@ class Enemy extends FlxSprite
 	{
 		if (!bullet.alive && time == 0)
 		{
-			time = 8;
+			time = 5;
 			return true;
 		}
 		
