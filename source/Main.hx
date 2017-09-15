@@ -6,9 +6,10 @@ import states.PlayState;
 
 class Main extends Sprite
 {
+	
 	public function new()
 	{
 		super();
-		addChild(new FlxGame(160, 144, PlayState, 1, 60, 60));
+		addChild(new FlxGame(160, 144, PlayState, 1, 60, 60, true));
 	}
 }

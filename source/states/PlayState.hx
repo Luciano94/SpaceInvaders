@@ -198,6 +198,7 @@ class PlayState extends FlxState
 	{	
 		var back:Enemy = enemies.members[enemies.length - 1];
 		var forward:Enemy = enemies.members[0];
+		var down:Enemy = enemies.members[enemies.length - 1];
 		
 		for (i in enemies.iterator())
 		{
@@ -205,6 +206,16 @@ class PlayState extends FlxState
 				back = i;
 			else if (forward.x > i.x)
 					forward = i;
+			if (down.y < i.y)
+				down = i;
+		}
+		if (down.y  == FlxG.height)
+		{
+				if (Reg.score > Reg.highestScore)
+					Reg.highestScore = Reg.score;
+				Reg.score = 0;
+				Reg.gameOver = true;
+				FlxG.sound.play(AssetPaths.gameOver__wav);
 		}
 		if (forward.x < 0)
 		{
