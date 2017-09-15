@@ -5,9 +5,10 @@ import flixel.system.FlxBasePreloader;
 class CustomPreloader extends FlxBasePreloader 
 {
 
-	public function new(MinDisplayTime:Float=0, ?AllowedURLs:Array<String>) 
+	override public function new(MinDisplayTime:Float=5, AllowedURLs:Array<String>) 
 	{
-		super(MinDisplayTime, ?AllowedURLs);
+		super(MinDisplayTime, AllowedURLs);
+		
 		
 	}
 	

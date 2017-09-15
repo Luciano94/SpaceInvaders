@@ -230,8 +230,9 @@ class PlayState extends FlxState
 		{
 			if (i.velocity.x < 0)
 				i.velocity.x -=3;
-			else if (i.velocity.x > 0) 
-				i.velocity.x +=3;
+			else 
+				if (i.velocity.x > 0) 
+					i.velocity.x +=3;
 		}
 	}
 	
@@ -247,7 +248,7 @@ class PlayState extends FlxState
 	
 	private function resetEnemies():Void
 	{
-		if (enemies.countDead() == 28)
+		if (enemies.countDead() == enemies.length)
 		{
 			enemies.destroy();
 			

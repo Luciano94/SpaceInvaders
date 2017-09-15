@@ -39,7 +39,7 @@ class Enemy extends FlxSprite
 	{
 		if (!bullet.alive && time == 0)
 		{
-			time = 10;
+			time = 8;
 			return true;
 		}
 		
@@ -49,7 +49,7 @@ class Enemy extends FlxSprite
 	
 	public function shoot(bullet:EnemyBullet):Void
 	{
-		bullet.reset(x + width / 2, y);
+		bullet.reset(x + width / 2 - width / 2, y);
 		FlxG.sound.play(AssetPaths.enemyShot__wav);
 	}
 }
