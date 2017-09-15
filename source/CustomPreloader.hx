@@ -4,6 +4,10 @@ import flixel.system.FlxBasePreloader;
 import flash.display.*;
 import flash.Lib;
 import openfl.display.Sprite;
+//import flash.text.*;
+//import flash.text.Font;
+//import flash.text.TextField;
+//import flash.text.TextFormat;
 
 @:bitmap("assets/images/CustomPreload/logo.png") class LogoImage extends BitmapData { }
  
@@ -16,7 +20,7 @@ class CustomPreloader extends FlxBasePreloader
     }
      
     var logo:Sprite;
-     
+    //var text:TextField; 
     override function create():Void 
     {
         this._width = Lib.current.stage.stageWidth;
@@ -29,9 +33,20 @@ class CustomPreloader extends FlxBasePreloader
         logo.scaleX = logo.scaleY = ratio;
         logo.x = ((this._width) / 2) - ((logo.width) / 2);
         logo.y = (this._height / 2) - ((logo.height) / 2);
-        addChild(logo); //Adds the graphic to the NMEPreloader's buffer.
-         
-        super.create();
+        addChild(logo); //Adds the graphic to the NMEPreloader's buffer
+        
+		//text = new TextField();
+        //text.defaultTextFormat = new TextFormat("Arial", Std.int(24 * ratio), 0xffffff, false, false, false, "", "", TextFormatAlign.CENTER);
+        //text.embedFonts = true;
+        //text.selectable = false;
+        //text.multiline = false;
+        //text.x = 0;
+        //text.y = 5.2 * this._height / 6;
+        //text.width = _width;
+        //text.height = Std.int(32 * ratio);
+        //text.text = "Iglesias, Mosconi, Novak";
+        //addChild(text); 
+        //super.create();
     }
 	
 }

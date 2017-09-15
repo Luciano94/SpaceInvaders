@@ -65,19 +65,19 @@ class PlayState extends FlxState
 		lives.setFormat(8, 0x04FF00, FlxTextAlign.CENTER);
 		score.setFormat(8, 0xFFF700, FlxTextAlign.LEFT);
 		highestScore.setFormat(8, 0xFF0000, FlxTextAlign.RIGHT);
-		paused.setFormat(8, 0xFFF700, FlxTextAlign.CENTER);
-		gameOver.setFormat(8, 0xFFF700, FlxTextAlign.CENTER);
+		paused.setFormat(8, 0xFF0000, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, 0xFF04FF00);
+		gameOver.setFormat(8, 0xFF0000, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, 0xFF04FF00);
 		
+		add(lives);
+		add(score);
+		add(highestScore);
 		add(player);
 		add(enemies);
 		add(eneBullet);
 		add(structures);
-		add(lives);
-		add(score);
-		add(highestScore);
+		add(ufo);
 		add(paused);
 		add(gameOver);
-		add(ufo);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -222,7 +222,7 @@ class PlayState extends FlxState
 			for (j in enemies.iterator())
 			{
 				j.velocity.x = -j.velocity.x;
-				j.y += 4;
+				j.y += 8;
 			}
 		}
 		if (back.x > FlxG.width - 8)
@@ -230,7 +230,7 @@ class PlayState extends FlxState
 			for (j in enemies.iterator())
 			{
 				j.velocity.x = -j.velocity.x;
-				j.y += 4;
+				j.y += 8;
 			}
 		}
 	}	
